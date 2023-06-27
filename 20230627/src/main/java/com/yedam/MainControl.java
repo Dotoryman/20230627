@@ -11,6 +11,8 @@ public class MainControl implements Control {
 	public String exec(HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
 		String page = "WEB-INF/views/main.jsp";
+		page = "main/main.tiles"; //{1}
+		page = "prod/sample.tiles";
 		return page;
 	}
 
