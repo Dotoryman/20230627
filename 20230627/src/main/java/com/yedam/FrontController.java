@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
+import com.yedam.member.contorl.LoginFormControl;
+import com.yedam.member.contorl.MemberListControl;
 
 public class FrontController extends HttpServlet{
 	
@@ -23,6 +25,9 @@ public class FrontController extends HttpServlet{
 	
 	public void init(ServletConfig config) throws ServletException{
 		menu.put("/main.do", new MainControl());
+		
+		menu.put("/memberList.do", new MemberListControl());
+		menu.put("/loginForm.do", new LoginFormControl());
 	}
 	
 	@Override
@@ -35,6 +40,11 @@ public class FrontController extends HttpServlet{
 		
 		Control control = menu.get(page);
 		String viewPage = control.exec(req, resp);
+		
+		if(viewPage.endsWith(".jsp")) {
+			viewPage = "/WEB-INF/views/" +viewPage;
+		}
+		
 		
 		RequestDispatcher rd = null;
 		rd = req.getRequestDispatcher(viewPage);
