@@ -3,3 +3,5 @@
 
 <h2> Main page </h2>
 <h3>It's hard knock life</h3>
+
+<script src="resources/js/main.js"></script>

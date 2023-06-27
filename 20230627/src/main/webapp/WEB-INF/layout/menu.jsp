@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 		 <div class="border-end bg-white" id="sidebar-wrapper">
+		 <c:choose>
+		 	<c:when test="${!empty logId }">
+		 		<div class="sidebar-heading border-bottom bg-light">${logName }</div>
+		 	</c:when>
+		 </c:choose>
                 <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberList.do">회원목록</a>

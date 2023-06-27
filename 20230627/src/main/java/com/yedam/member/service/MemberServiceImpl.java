@@ -1,6 +1,7 @@
 package com.yedam.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -16,6 +17,17 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<MemberVO> members() {
 		return mapper.memberList();
+	}
+
+	@Override
+	public MemberVO login(String id, String pw) {
+		// TODO Auto-generated method stub
+		return mapper.login(id, pw);
+	}
+	
+	@Override
+	public List<Map<String, Object>> getData() {
+		return mapper.chartData();
 	}
 	
 }

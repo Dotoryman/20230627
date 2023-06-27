@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
+import com.yedam.member.contorl.ChartDataControl;
+import com.yedam.member.contorl.ChartFormControl;
+import com.yedam.member.contorl.LoginControl;
 import com.yedam.member.contorl.LoginFormControl;
 import com.yedam.member.contorl.MemberListControl;
 
@@ -28,9 +31,13 @@ public class FrontController extends HttpServlet{
 		
 		menu.put("/memberList.do", new MemberListControl());
 		menu.put("/loginForm.do", new LoginFormControl());
+		menu.put("/login.do", new LoginControl());
+		//
+		menu.put("/chartForm.do", new ChartFormControl());
+		menu.put("/chartData.do", new ChartDataControl());
 	}
 	
-	@Override
+	@Override //중요!
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String uri = req.getRequestURI();
@@ -43,6 +50,13 @@ public class FrontController extends HttpServlet{
 		
 		if(viewPage.endsWith(".jsp")) {
 			viewPage = "/WEB-INF/views/" +viewPage;
+		} else if (viewPage.endsWith(".do")) {
+			resp.sendRedirect(viewPage); //loginForm.do
+			return;
+		} else if(viewPage.endsWith(".json")) {
+			resp.setContentType("text/json;charset=utf-8");
+			resp.getWriter().print(viewPage.substring(0, viewPage.length() - 5));//.json 빼려고 5자 뺌
+			return;
 		}
 		
 		

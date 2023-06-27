@@ -21,6 +21,14 @@
 		values(#{userId},
 		#{userPw}, #{userName}, #{userBirth}, #{userImg} )
 	</insert>
+	
+	<select id="chartData" resultType="map">
+		select department_name, count(*) cnt
+		from hr.employees e
+		join hr.departments d
+		on e.department_id = d.department_id
+		group by department_name	
+	</select>
 
 
 	<select id="search" resultType="member" parameterType="member">

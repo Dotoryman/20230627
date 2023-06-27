@@ -5,14 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
 
-public class LoginFormControl implements Control {
+public class ChartFormControl implements Control {
 
 	@Override
 	public String exec(HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
-		String page = "member/loginForm.jsp";
-		
-		return page;
+		return "admin/chart.tiles";
 	}
 
 }
