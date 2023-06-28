@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
+import com.yedam.member.contorl.CalendarForm;
 import com.yedam.member.contorl.ChartDataControl;
 import com.yedam.member.contorl.ChartFormControl;
 import com.yedam.member.contorl.ImageUploadControl;
@@ -43,6 +44,7 @@ public class FrontController extends HttpServlet{
 		//
 		menu.put("/chartForm.do", new ChartFormControl());
 		menu.put("/chartData.do", new ChartDataControl());
+		menu.put("/calendar.do", new CalendarForm());
 	}
 	
 	@Override //중요!
