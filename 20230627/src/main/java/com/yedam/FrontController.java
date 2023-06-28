@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.common.Control;
 import com.yedam.member.contorl.ChartDataControl;
 import com.yedam.member.contorl.ChartFormControl;
+import com.yedam.member.contorl.ImageUploadControl;
 import com.yedam.member.contorl.LoginControl;
 import com.yedam.member.contorl.LoginFormControl;
+import com.yedam.member.contorl.MemberInfoControl;
 import com.yedam.member.contorl.MemberListControl;
+import com.yedam.member.contorl.MemberModifyControl;
 
 public class FrontController extends HttpServlet{
 	
@@ -32,6 +35,11 @@ public class FrontController extends HttpServlet{
 		menu.put("/memberList.do", new MemberListControl());
 		menu.put("/loginForm.do", new LoginFormControl());
 		menu.put("/login.do", new LoginControl());
+		menu.put("/memberInfo.do", new MemberInfoControl());
+		menu.put("/memberModify.do", new MemberModifyControl());
+		menu.put("/imageUpload.do", new ImageUploadControl());
+
+
 		//
 		menu.put("/chartForm.do", new ChartFormControl());
 		menu.put("/chartData.do", new ChartDataControl());

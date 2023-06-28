@@ -30,4 +30,18 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.chartData();
 	}
 	
+	@Override
+	public MemberVO getMember(String id) {
+		return mapper.select(id);
+	}
+	
+	@Override
+	public boolean modifyMember(MemberVO vo) {
+		return mapper.update(vo) == 1;
+	}
+	
+	@Override
+	public boolean modifyImage(MemberVO vo) {
+		return mapper.updateImage(vo) == 1;
+	}
 }

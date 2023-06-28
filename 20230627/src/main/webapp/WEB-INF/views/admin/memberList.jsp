@@ -16,10 +16,11 @@
 		<c:forEach var="member" items="${members }">
 		<tr>
 			<td><c:out value="${member.userId }" /></td>
-			<td><c:out value="${member.userName }" /></td>
+			<td><a href="memberInfo.do?uid=${member.userId }"><c:out value="${member.userName }" /></a></td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd" value="${member.userBirth }"/></td>
 			<td><c:out value="${member.userPhone }" /></td>
-			<td><img width="100px" src='images/${member.userImg }' /></td>
+			<td><a href="memberInfo.do?uid=${member.userId }">
+				<img width="100px" src='images/${member.userImg }' /></a></td>
 			
 			
 		</tr>

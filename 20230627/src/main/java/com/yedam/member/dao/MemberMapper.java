@@ -12,4 +12,8 @@ public interface MemberMapper {
 	public MemberVO login (@Param("id") String id, @Param("pw") String pw);
 	public int insert(MemberVO member);
 	public List<Map<String, Object>> chartData();
+	public MemberVO select (String id);
+	public int update(MemberVO member);
+	public int updateImage(MemberVO member);
+
 }
