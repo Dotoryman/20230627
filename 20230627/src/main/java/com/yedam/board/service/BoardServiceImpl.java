@@ -11,37 +11,46 @@ import com.yedam.common.DataSource;
 
 public class BoardServiceImpl implements BoardService{
 
-	SqlSession session = DataSource.getInstance().openSession(true);
-	BoardMapper mapper = session.getMapper(BoardMapper.class);
-	
-	@Override
-	public List<BoardVO> boards() {
-		return mapper.boardList();
-	}
-	
-	@Override
-	public List<Map<String, Object>> getData() {
-		return mapper.chartData();
-	}
-	
-	@Override
-	public BoardVO getBoard(String id) {
-		return mapper.select(id);
-	}
-	
-	@Override
-	public boolean modifyBoard(BoardVO vo) {
-		return mapper.update(vo) == 1;
-	}
-	
-	@Override
-	public boolean modifyImage(BoardVO vo) {
-		return mapper.updateImage(vo) == 1;
-	}
+	// SqlSessionFactory 객체
+		SqlSession session = DataSource.getInstance().openSession(true);
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		
+		
+		
+		
+		
+		@Override
+		public List<BoardVO> list(int page) {
+//			return session.selectList("com.yedam.board.persistence.BoardMapper.boardList"); //mapper.id
+			return mapper.boardList(page);
+		}
+		
+		@Override
+		public boolean addBoard(BoardVO vo) {
+			return mapper.insertBoard(vo) == 1;
+		}
 
-	@Override
-	public BoardVO login(String id, String pw) {
-		// TODO Auto-generated method stub
-		return null;
+		@Override
+		public BoardVO getBoard(long brdNo) {
+			BoardVO vo = mapper.selectBoard(brdNo);
+			mapper.updateCnt(brdNo);
+			return vo;
+		}
+
+		@Override
+		public boolean editBoard(BoardVO vo) {
+			return mapper.updateBoard(vo) == 1;
+		}
+
+		@Override
+		public boolean delBoard(long brdNo) {
+			return mapper.deleteCnt(brdNo) == 1;
+		}
+
+
+		@Override
+		public int totalCnt() {
+			return mapper.totalCnt();
+		}
+
 	}
-}

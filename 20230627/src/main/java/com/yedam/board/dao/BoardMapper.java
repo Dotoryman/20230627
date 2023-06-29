@@ -6,11 +6,12 @@ import java.util.Map;
 import com.yedam.board.vo.BoardVO;
 
 public interface BoardMapper {
-	public List<BoardVO> boardList();
-	public int insert(BoardVO board);
-	public List<Map<String, Object>> chartData();
-	public BoardVO select (String id);
-	public int update(BoardVO board);
-	public int updateImage(BoardVO board);
-
+	public List<BoardVO> boardList(int page);
+	public int totalCnt();
+	public BoardVO selectBoard(long bno);
+	public int updateCnt(long bno);
+	public int deleteCnt(long bno);
+	public int updateBoard(BoardVO board);
+	public int insertBoard(BoardVO board);
+	
 }

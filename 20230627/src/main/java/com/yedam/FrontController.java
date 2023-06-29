@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.board.control.BoardInfoControl;
 import com.yedam.board.control.BoardListControl;
+import com.yedam.board.control.BoardModifyControl;
 import com.yedam.calendar.control.AddEventControl;
 import com.yedam.calendar.control.EventForm;
 import com.yedam.calendar.control.EventListControl;
@@ -60,6 +61,7 @@ public class FrontController extends HttpServlet{
 		//Board
 		menu.put("/boardList.do", new BoardListControl());
 		menu.put("/boardInfo.do", new BoardInfoControl());
+		menu.put("/boardModify.do", new BoardModifyControl());
 
 	}
 	

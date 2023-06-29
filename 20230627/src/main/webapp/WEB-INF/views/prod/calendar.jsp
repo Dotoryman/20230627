@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset='utf-8' />
+
 <script src='fullcalendar-6.1.8/dist/index.global.js'></script>
 <script>
 	let data =[

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.board.service.BoardService;
 import com.yedam.board.service.BoardServiceImpl;
+import com.yedam.board.service.BoardServiceMybatis;
 import com.yedam.board.vo.BoardVO;
 import com.yedam.common.Control;
 
@@ -16,14 +17,14 @@ public class BoardInfoControl implements Control {
 		// 서비스에 getMember(id)하면 멤버정보 넘겨주고 맵퍼에는 select(id) => MemberVO
 		// 최종 도달은 admin/memberInfo.jsp
 		
-		String id = req.getParameter("uid");
+		String no = req.getParameter("bno");
 		BoardService service = new BoardServiceImpl();
-		BoardVO result = service.getBoard(id);
+		BoardVO result = service.getBoard(Long.parseLong(no));
 		
 		
 		req.setAttribute("board", result);
 		
-		return "admin/boardInfo.tiles";
+		return "board/boardInfo.tiles";
 	}
 
 }
