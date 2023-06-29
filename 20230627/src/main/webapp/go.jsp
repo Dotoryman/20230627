@@ -8,7 +8,11 @@
 </head>
 <body>
 	<h3>검색 조건</h3>
-	시도:<input type="text" id="search"><button id="searchBtn">조회</button>
+	시도:<select id="search">
+			
+		</select>
+	
+	<button id="searchBtn">조회</button>
 	<div id ="show">
 		<table border="1">
 			<thead>
@@ -25,6 +29,8 @@
 	<script>
 		let totalData = [];
 		let url=`https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&serviceKey=AhFQHHOv5YBZSF2KvX8zf0lBj0BaWbPXbhU4H%2BBu%2BzXITa2G%2FvitTV0mJczD3JvQ5D8ERlNpZ01rEs9YItseHA%3D%3D`;
+		
+		//Ajax 호출
 		let xhtp = new XMLHttpRequest();
 		xhtp.open('get', url);
 		xhtp.send();
@@ -37,14 +43,39 @@
 			for (let i=0; i<data.data.length; i++){
 				tbody.appendChild(makeRow(data.data[i])); //센터정보 1건
 			}
+			//sido 정보만 => sidoAry
+			// totalData => [{},{},{},...,{}]
+			let sidoAry = [];
+			for(let data of totalData){
+				if(sidoAry.indexOf(data.sido)==-1){
+					sidoAry.push(data.sido)
+				}
+			}
+			console.log(sidoAry)
+			for(let sido of sidoAry){
+				let sel = document.getElementById("search");
+				let opt = document.createElement("option");
+				opt.innerText = sido;
+				opt.value = sido;
+				sel.appendChild(opt);
+			}
 		}
-		
+		// 보여줄 필드 설정
 		let fields = ['id', 'centerName','phoneNumber','sido','zipCode'];
+		// 센터정보 생성하기(tr)
 		function makeRow(obj={}) {
 			let tr =document.createElement('tr');
 			for (let field of fields){
 				let td = document.createElement('td');
-				td.innerText = obj[field];
+				if (field == 'centerName') {
+					let ahref = document.createElement('a');
+					ahref.setAttribute('href', 'map.jsp?lat='+obj.lat+'&lng='+obj.lng+'&cname='+obj.centerName); // ahref.href = 'map.jsp'; 둘 다 가능
+					ahref.target = "_blank"; //새창에서 보여주기
+					ahref.innerText = obj[field];
+					td.appendChild(ahref);
+				} else {
+					td.innerText = obj[field];
+				}
 				tr.appendChild(td);
 			}
 			return tr;
