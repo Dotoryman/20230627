@@ -178,7 +178,7 @@
 				console.log(tag.dataset.rno);
 				let rno = tag.dataset.rno;
 				fetch('getReply.do?rno='+rno)
-				.then((response) =>  {return response.json();}) //json 문자열로 변환 [{"name":"kim","age":"30"}]
+				.then((response) => response.json()) //json 문자열로 변환 [{"name":"kim","age":"30"}]
 				.then(function (result){ //댓글 정보 모달창에 나오게하기
 					console.log(result)
 					document.querySelector('#myModal input[name="replyNo"]').value = result.replyNo;
@@ -313,11 +313,11 @@
 		.then((response) =>  response.json()) 
 		.then(result => {
 			replyUL.innerHTML += makeList(result);
-			searchList();
 			//모달창 닫기
 			modal.style.display = 'none';
 			modal.style.opacity = 0;
 			alert("등록되었습니다!");
+			searchList();
 		})
 		.catch(function (err){
 			console.error(err);
