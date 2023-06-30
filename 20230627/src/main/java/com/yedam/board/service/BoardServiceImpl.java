@@ -16,9 +16,6 @@ public class BoardServiceImpl implements BoardService{
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		
 		
-		
-		
-		
 		@Override
 		public List<BoardVO> list(int page) {
 //			return session.selectList("com.yedam.board.persistence.BoardMapper.boardList"); //mapper.id

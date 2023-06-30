@@ -41,7 +41,7 @@
 
 	.outer span{
 		display: inline-block;
-		width: 80px;
+		width: 110px;
 		height: 30px;
 		margin: 2px;
 		padding: 2px;
@@ -49,19 +49,13 @@
 		text-align: center;
 	}
 </style>
-
+<h2> 영문 타자연습 </h2>
 <input type="text" id="userInput"><br>
 <br>
+<p id="time"></p>
 <div class="outer">
-	<span>HELL</span>
-	<span>1</span>
-	<span>2</span>
-	<span>3</span>
-	<span>4</span>
-	<span>5</span>
-
 </div>
 
 
 
-<script src="resources/js/main5.js"></script>
+<script src="resources/js/main6.js"></script>
