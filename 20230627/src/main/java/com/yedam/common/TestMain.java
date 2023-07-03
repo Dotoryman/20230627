@@ -31,10 +31,10 @@ public class TestMain {
 		mapper.deleteReply(9);
 		
 		
-		List<ReplyVO> list = mapper.selectList(704);
-		for (ReplyVO vo : list){
-			System.out.println(vo.toString());
-		}
+//		List<ReplyVO> list = mapper.selectList(704);
+//		for (ReplyVO vo : list){
+//			System.out.println(vo.toString());
+//		}
 		
 		
 		

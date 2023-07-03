@@ -230,21 +230,31 @@
 	const replyUL = document.querySelector('ul.chat');
 
 	//댓글목록 Ajax
-	fetch('replyList.do?brdNo='+bno)
+	function replyFnc(bno, page){ 
+	fetch('replyList.do?brdNo='+bno + '&page=' + page)
 	.then(function(response) {
 		console.log(response);
 		return response.json();
 	})
 	.then(function (result) {
-		console.log(result);
-		for(let reply of result) {
+		console.log(result); // count: ??, list
+		if(page == -1) {
+			pageNum = Math.ceil(result.count / 10.0);
+			replyFnc(bno, pageNum);
+			return;
+		}
+		replyUL.innerHTML = "";
+		for(let reply of result.list) {
 			replyUL.innerHTML += makeList(reply);
 		}
 		searchList();
+		showReplyPage(result.count);
 	})
 	.catch(function(err) {
 		console.error(err);
 	})
+	}
+	replyFnc(bno, 1); //첫 페이지 출력
 
 	//수정버튼
 	document.querySelector('#modalModBtn').addEventListener('click', function(e) {
@@ -286,8 +296,9 @@
 		// fetch('editReply.do?rno='+rno+'&reply='+reply)
 		.then((response) =>  response.json()) 
 		.then(result => {
-			let targetLi = document.querySelector('.chat li[data-rno="'+ rno +'"]');
-			targetLi.remove();
+			//let targetLi = document.querySelector('.chat li[data-rno="'+ rno +'"]');
+			//targetLi.remove();
+			replyFnc(bno, pageNum);
 			//모달창 닫기
 			modal.style.display = 'none';
 			modal.style.opacity = 0;
@@ -312,12 +323,13 @@
 		// fetch('editReply.do?rno='+rno+'&reply='+reply)
 		.then((response) =>  response.json()) 
 		.then(result => {
-			replyUL.innerHTML += makeList(result);
+			//replyUL.innerHTML += makeList(result);
+			searchList();
+			replyFnc(bno, 1)
 			//모달창 닫기
 			modal.style.display = 'none';
 			modal.style.opacity = 0;
 			alert("등록되었습니다!");
-			searchList();
 		})
 		.catch(function (err){
 			console.error(err);
@@ -341,14 +353,26 @@
 		//계산한 값으로 페이지 출력
 		let str = '<ul class="pagination pull-right">';
 			if(prev){
-				str += '<li class="page-item"><a href ="">' + (startPage - 1) + '</a></li>';
+				str += '<li class="page-item"><a data-page="'+(startPage-1)+'" href ="" class="paging">prev</a></li>';
 			}
 			for(let i = startPage ; i<= endPage; i++) {
-				str += '<li class="page-item"><a href ="">' + i + '</a></li>';
+				str += '<li class="page-item"><a data-page="'+ i +'" href ="" class="paging">' + i + '</a></li>';
 			}
 			if(next){
-				str += '<li class="page-item"><a href ="">' + (endPage + 1) + '</a></li>';
+				str += '<li class="page-item"><a data-page="'+(endPage+1)+'" href ="" class="paging">next</a></li>';
 			}
 			str += '</ul>';
+			document.querySelector('div.panel-footer').innerHTML = str;
+			
+			//링크클릭 이벤트
+			document.querySelectorAll('a.paging').forEach(aTag =>{
+				aTag.addEventListener('click', function(e){
+					event.preventDefault();
+					pageNum = aTag.dataset.page;
+					console.log(pageNum);
+					replyFnc(bno, pageNum); //원본글, 페이지 호출
+				})
+			})
 	}
+	
 </script>

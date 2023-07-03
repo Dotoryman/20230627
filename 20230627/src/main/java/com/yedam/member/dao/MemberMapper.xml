@@ -15,11 +15,10 @@
 	</select>
 
 
-	<insert id="insert" parameterType="member">
+	<insert id="insert" parameterType="member" >
 		insert into tbl_users
-		(user_id, user_pw, user_name, user_birth, user_img)
-		values(#{userId},
-		#{userPw}, #{userName}, #{userBirth}, #{userImg} )
+		(user_id, user_pw, user_name, user_birth, user_img, user_phone, user_addr)
+		values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userImg}, #{userPhone}, #{userAddr} )
 	</insert>
 	
 	<select id="chartData" resultType="map">
