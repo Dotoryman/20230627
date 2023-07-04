@@ -26,9 +26,12 @@
                             ,$('<td />').text(item.userName)
                             ,$('<td />').text(new Date(item.userBirth).timeFormat())
                             ,$('<td />').text(item.userPhone)
+                            ,$('<td />').text(item.userAddr)
                             ,$('<td />').append($('<img>').attr('src', 'images/' + item.userImg).attr('width','90px'))
+                            ,$('<td />').append($('<button />').text('삭제').on('click', delMemberFnc) )
                     );
-                    tr.on('click', modifyFnc)
+                    tr.data('id', item.userId);
+                    tr.on('click', modifyFnc);
                     $('#list').append(tr);
                 });
             },
@@ -36,6 +39,31 @@
                 console.log(err)
             }
         });
+
+        function delMemberFnc(e) {
+            e.stopPropagation(); //이벤트가 전파되는 것을 차단하겠습니다.
+            // data-id -> dataset.id
+            console.log($(this).parent().parent().data('id'));
+            // DOM일땐 this.parentElement.parentElement.dataset.id
+            let targetId = $(this).parent().parent().data('id');
+            //<tr data-id="user1"> 또는 $('tr[data-id="user1"]')
+            let targetTr = $(this).parent().parent();
+            $.ajax({
+                url: '',
+                method: 'post',
+                data: {id: targetId},
+                success: function(result) {
+                    if (result.retCode == 'Success'){
+                        targetTr.remove();
+                    }
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+            })
+        }
+
+
 
         function modifyFnc(e){
             // console.log($(this).children().eq(0).text());
@@ -92,6 +120,42 @@
 
             });
         }
+        
+        // 수정(변경) 버튼 클릭시 on click
+        $('#modBtn').on('click',editForm);
+        function editForm(e) {
+        	
+        	$.ajax({
+                url: 'memberEditJson.do',
+                method: 'post',
+                data: {
+                    uid: $('#uid').val(),
+                    upw: $('#upw').val(),
+                    uname: $('#uname').val(),
+                    uphone: $('#uphone').val(),
+                    uaddr: $('#uaddr').val(),
+                    ubirth: $('#ubirth').val()
+                },
+                success: function(result){
+                    //result.userId
+                    //Array.prototype.forEach(function(item, idx, ary){ })
+                    console.log(result);
+                    console.log($('#list tr').children());
+                    $('#list tr').each(function (idx, item){
+                        console.log(idx,item);
+                        if ($(item).children().eq(0).text() == result.userId){
+                            $(item).children().eq(1).text(result.userName)
+                            $(item).children().eq(2).text(new Date(result.userBirth).timeFormat())
+                            $(item).children().eq(3).text(result.userPhone)
+                            $(item).children().eq(4).text(result.userAddr)
+                        }
+                    });
+                },
+                error: function(err){
+                    console.log(err);
+                }
+            })
+        }
 	})
 </script>
 <h3>Jquery연습 (memberForm.jsp) Ajax = Single Page Application</h3>
@@ -119,6 +183,8 @@
         <td colspan="2" align="center">
             <input type="submit" value="등록">
             <input type="reset" value="초기화">
+            <button type="button" id="modBtn">변경</button>
+            
         </td>
      </tr>
 	</table>
@@ -130,6 +196,7 @@
             <th>이름</th>
             <th>생일</th>
             <th>연락처</th>
+            <th>주소</th>
             <th>사진</th>
         </tr>
     </thead>

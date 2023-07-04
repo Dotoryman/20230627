@@ -49,6 +49,7 @@
 			,user_name = #{userName}
 			,user_phone = #{userPhone}
 			,user_addr = #{userAddr}
+			,user_birth = #{userBirth}
 		where user_id = #{userId}
 	</update>
 	
@@ -58,6 +59,9 @@
 		where user_id = #{userId}
 	
 	</update>
+	
+	
+	
 
 
 </mapper>

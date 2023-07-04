@@ -36,6 +36,7 @@ import com.yedam.member.contorl.MemberListControl;
 import com.yedam.member.contorl.MemberListJquery;
 import com.yedam.member.contorl.MemberListJson;
 import com.yedam.member.contorl.MemberModifyControl;
+import com.yedam.member.contorl.memberEditJson;
 
 public class FrontController extends HttpServlet{
 	
@@ -62,6 +63,9 @@ public class FrontController extends HttpServlet{
 		
 		menu.put("/memberAdd.do", new MemberAddControl());
 		menu.put("/memberInfoJson.do", new MemberInfoJson());
+		
+		menu.put("/memberEditJson.do", new memberEditJson());
+
 		
 		//
 		menu.put("/chartForm.do", new ChartFormControl());
